@@ -1,4 +1,4 @@
-# Astro Starter Kit: Blog
+# 个人博客
 
 ```sh
 pnpm create astro@latest -- --template blog
