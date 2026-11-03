@@ -15,7 +15,7 @@ const blog = defineCollection({
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
 
-      category: z.enum(["tech", "life", "entertainment", "thoughts"]), // 类别
+      category: z.enum(["tech", "life", "entertainment", "thoughts"]).optional(), // 类别
 
       tags: z.array(z.string()).default([]), // 标签
 

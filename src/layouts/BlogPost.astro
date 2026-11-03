@@ -27,7 +27,7 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
       }
       .hero-image img {
         width: 1020px;
-        height: 510px;
+        /* height: 510px; */
         display: block;
         margin: 0 auto;
         border-radius: 12px;
@@ -68,9 +68,16 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
         </div>
         <div class="prose">
           <div class="title">
-            <span class={`category ${category}`} style="font-size: inherit;"
-              >{categoryNames[category]}</span
-            >
+            {
+              category && (
+                <span
+                  class={`category ${category}`}
+                  style="font-size: inherit;"
+                >
+                  {categoryNames[category]}
+                </span>
+              )
+            }
             <div class="date">
               <p class="date">
                 <FormattedDate date={pubDate} />
