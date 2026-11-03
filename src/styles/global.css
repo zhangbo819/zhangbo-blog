@@ -140,6 +140,39 @@ hr {
 	white-space: nowrap;
 }
 
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.category {
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: #f0f3f7;
+  color: #526174;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.category.tech {
+  background: #e8f1ff;
+  color: #3972bd;
+}
+.category.life {
+  background: #e8f5ec;
+  color: #398052;
+}
+.category.entertainment {
+  background: #f3edff;
+  color: #8058b5;
+}
+.category.thoughts {
+  background: #fff2e5;
+  color: #b47736;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -157,3 +190,4 @@ table td {
   vertical-align: top;
   border: 1px solid #ddd;
 }
+
