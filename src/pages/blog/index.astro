@@ -7,9 +7,9 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import { categoryNames, SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection("blog"))
+  .filter((i) => !i.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
@@ -100,8 +100,8 @@ const posts = (await getCollection("blog")).sort(
                   <a href={`/blog/${post.id}/`}>
                     {post.data.heroImage && (
                       <Image
-                        // width={720}
-                        // height={360}
+                        width={720}
+                        height={360}
                         src={post.data.heroImage}
                         alt={post.data.description}
                       />
@@ -111,9 +111,11 @@ const posts = (await getCollection("blog")).sort(
                       <p class="date">
                         <FormattedDate date={post.data.pubDate} />
                       </p>
-                      <span class={`category ${category}`}>
-                        {categoryNames[category]}
-                      </span>
+                      {category && (
+                        <span class={`category ${category}`}>
+                          {categoryNames[category]}
+                        </span>
+                      )}
                     </div>
                   </a>
                 </li>

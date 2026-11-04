@@ -79,14 +79,14 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
               )
             }
             <div class="date">
-              <p class="date">
+              <p>
                 <FormattedDate date={pubDate} />
               </p>
               {
                 updatedDate && (
-                  <div class="last-updated-on">
+                  <p class="last-updated-on">
                     Last updated on <FormattedDate date={updatedDate} />
-                  </div>
+                  </p>
                 )
               }
             </div>
