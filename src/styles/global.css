@@ -45,6 +45,7 @@ h6 {
 	color: rgb(var(--black));
 	line-height: 1.2;
 }
+/* Desktop */
 h1 {
 	font-size: 3.052em;
 }
@@ -138,6 +139,33 @@ hr {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.75em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.35em;
+  }
+
+  h4 {
+    font-size: 1.2em;
+  }
+
+  h5 {
+    font-size: 1.1em;
+  }
+
+  blockquote {
+	font-size: 0.8em;
+  }
 }
 
 .row {
