@@ -15,7 +15,9 @@ const blog = defineCollection({
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
 
-      category: z.enum(["tech", "life", "entertainment", "thoughts"]).optional(), // 类别
+      category: z
+        .enum(["tech", "life", "entertainment", "thoughts"])
+        .optional(), // 类别
 
       tags: z.array(z.string()).default([]), // 标签
 
@@ -23,4 +25,15 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const notes = defineCollection({
+  loader: glob({
+    base: "./src/content/notes",
+    pattern: "**/*.{md,mdx}",
+  }),
+  schema: z.object({
+    pubDate: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { blog, notes };

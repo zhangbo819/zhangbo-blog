@@ -1,0 +1,144 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import Header from "../../components/Header.astro";
+
+const notes = await getCollection("notes");
+
+const sortedNotes = notes.sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("zh-CN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+---
+
+<html lang="zh-CN">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <meta name="description" content="一些想法、灵感与日常记录。" />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <header>
+        <h1>Notes</h1>
+        <p class="intro">
+          一些想法、灵感与日常记录。 不一定完整，也不一定需要一个结论。
+        </p>
+      </header>
+
+      <section class="notes-list">
+        {
+          sortedNotes.length > 0 ? (
+            sortedNotes.map((note) => (
+              <article class="note">
+                <time datetime={note.data.pubDate.toISOString()}>
+                  {formatDate(note.data.pubDate)}
+                </time>
+
+                <div class="note-content">
+                  <div class="content">{note.body}</div>
+
+                  {note.data.tags.length > 0 && (
+                    <div class="tags">
+                      {note.data.tags.map((tag) => (
+                        <span>#{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))
+          ) : (
+            <p class="empty">还没有留下笔记。</p>
+          )
+        }
+      </section>
+
+    </main>
+  </body>
+</html>
+
+<style>
+  .intro {
+    margin: 0;
+    color: #888;
+    font-size: 0.95rem;
+  }
+
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .note {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .note time {
+    padding-top: 3px;
+    color: #999;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .content {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+  }
+
+  .content :global(p) {
+    margin: 0 0 12px;
+  }
+
+  .content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .tags span {
+    color: #999;
+    font-size: 0.78rem;
+  }
+
+  .empty {
+    padding: 40px 0;
+    color: #aaa;
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    main {
+      padding-top: 48px;
+    }
+
+    .note {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 24px 0;
+    }
+
+    .note time {
+      font-size: 0.78rem;
+    }
+  }
+</style>
