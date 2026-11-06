@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
 
 const notes = await getCollection("notes");
 
@@ -62,6 +63,7 @@ const formatDate = (date: Date) =>
         }
       </section>
     </main>
+    <Footer />
   </body>
 </html>
 
