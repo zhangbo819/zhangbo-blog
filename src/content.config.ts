@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { categoryData } from "./consts";
 
 const blog = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
@@ -16,7 +17,7 @@ const blog = defineCollection({
       heroImage: z.optional(image()),
 
       category: z
-        .enum(["tech", "life", "entertainment", "thoughts", "occultism"])
+        .enum(categoryData)
         .optional(), // 类别
 
       tags: z.array(z.string()).default([]), // 标签

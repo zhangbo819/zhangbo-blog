@@ -200,6 +200,10 @@ hr {
   background: #fff2e5;
   color: #b47736;
 }
+.category.occultism {
+  background: #eeeaf5;
+  color: #75618f;
+}
 
 table {
   width: 100%;

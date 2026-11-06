@@ -5,7 +5,12 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
-import { categoryNames, SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import {
+  categoryData,
+  categoryNames,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+} from "../../consts";
 
 const posts = (await getCollection("blog"))
   .filter((i) => !i.data.draft)
@@ -20,6 +25,17 @@ const posts = (await getCollection("blog"))
   <body>
     <Header />
     <main>
+      <!-- <div class="category-filter">
+        <button class="filter-btn active" data-filter="all"> All </button>
+        {
+          categoryData.map((category) => (
+            <button class="filter-btn" data-filter={category}>
+              {categoryNames[category]}
+            </button>
+          ))
+        }
+      </div> -->
+
       <section>
         <ul>
           {
@@ -27,12 +43,12 @@ const posts = (await getCollection("blog"))
               const category = post.data.category;
 
               return (
-                <li>
+                <li class="post-card" data-category={category}>
                   <a href={`/blog/${post.id}/`}>
                     {post.data.heroImage && (
+                      // width={720}
+                      // height={360}
                       <Image
-                        width={720}
-                        height={360}
                         src={post.data.heroImage}
                         alt={post.data.description}
                       />
@@ -70,6 +86,48 @@ const posts = (await getCollection("blog"))
     <Footer />
   </body>
 </html>
+
+<!-- <script>
+  const buttons = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(".post-card");
+
+  let selected = new Set();
+
+  function updateFilter() {
+    buttons.forEach((button: any) => {
+      const filter = button.dataset.filter;
+      button.classList.toggle(
+        "active",
+        filter === "all" ? selected.size === 0 : selected.has(filter),
+      );
+    });
+
+    cards.forEach((card: any) => {
+      const category = card.dataset.category;
+      card.hidden = selected.size > 0 && !selected.has(category);
+    });
+  }
+
+  buttons.forEach((button: any) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+
+      // selected.clear();
+      // selected.add(filter);
+      if (filter === "all") {
+        selected.clear();
+      } else {
+        if (selected.has(filter)) {
+          selected.delete(filter);
+        } else {
+          selected.add(filter);
+        }
+      }
+
+      updateFilter();
+    });
+  });
+</script> -->
 
 <style>
   main {
@@ -149,4 +207,32 @@ const posts = (await getCollection("blog"))
     color: #999;
     font-size: 1rem;
   }
+
+  /* .category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 28px 0 32px;
+  }
+
+  .filter-btn {
+    padding: 7px 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: transparent;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: #f5f5f5;
+  }
+
+  .filter-btn.active {
+    background: #333;
+    border-color: #333;
+    color: white;
+  } */
 </style>
