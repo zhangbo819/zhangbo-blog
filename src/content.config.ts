@@ -16,7 +16,7 @@ const blog = defineCollection({
       heroImage: z.optional(image()),
 
       category: z
-        .enum(["tech", "life", "entertainment", "thoughts"])
+        .enum(["tech", "life", "entertainment", "thoughts", "occultism"])
         .optional(), // 类别
 
       tags: z.array(z.string()).default([]), // 标签

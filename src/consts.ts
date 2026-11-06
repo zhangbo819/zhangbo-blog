@@ -5,11 +5,12 @@ export const SITE_TITLE = "ZhangBo Blog";
 export const SITE_DESCRIPTION = "Welcome to my website!";
 
 export const categoryNames: Record<
-  "tech" | "life" | "entertainment" | "thoughts",
+  "tech" | "life" | "entertainment" | "thoughts" | "occultism",
   string
 > = {
   tech: "技术",
   life: "生活",
   entertainment: "娱乐",
   thoughts: "感悟",
+  occultism: "玄学",
 };
